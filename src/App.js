@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import WeatherAppContainer from './components/WeatherAppContainer';
+import CurrencyConverter from './components/CurrencyConverter';
 import './App.css';
 
 function App() {
+  const [selectedComponent, setSelectedComponent] = useState('currency');
+
+  const handleComponentChange = (component) => {
+    setSelectedComponent(component);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="main_navigation">
+        <button onClick={() => handleComponentChange('currency')}>Курс валют</button>
+        <button onClick={() => handleComponentChange('weather')}>Прогноз погоди</button>
+      </div>
+      <div className='main_container'>
+        {selectedComponent === 'currency' && <CurrencyConverter />}
+        {selectedComponent === 'weather' && <WeatherAppContainer />}
+      </div>
+
     </div>
   );
 }
